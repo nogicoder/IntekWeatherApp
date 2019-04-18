@@ -89,7 +89,7 @@ export default class App extends Component {
   submitInput = text => {
     for (let i = 0; i < data.default.length; i++) {
       if (data.default[i].name == this.state.text) {
-        this.setState({ city: data.default[i] });
+        this.setState({ city: data.default[i], cityname: this.state.text });
         this.fetchWeather(
           this.state.city.coord.lat,
           this.state.city.coord.lon
@@ -131,10 +131,6 @@ export default class App extends Component {
             selectedValue={this.state.cityname}
             onValueChange={this.updateCity}
           >
-            {/* <Picker.Item color="#00BFFF" label="1" value="1" />
-            <Picker.Item color="#00BFFF" label="2" value="2" />
-            <Picker.Item color="#00BFFF" label="3" value="3" />
-            <Picker.Item color="#00BFFF" label="4" value={a.id} /> */}
             {data.default.map((item, index) => (
               <Picker.Item
                 color="#00BFFF"
@@ -146,14 +142,13 @@ export default class App extends Component {
           </Picker>
 
           <View style={this.state.style.info}>
-            <Text style={this.state.style.weatherTitle}>
-              {this.state.city.name}
-            </Text>
-
             <ImageBackground
               source={require("./b.png")}
               style={this.state.style.weatherImg}
             >
+              <Text style={this.state.style.weatherTitle}>
+                {this.state.city.name}
+              </Text>
               <View style={this.state.style.weatherInfo}>
                 <Text style={this.state.style.weatherInfoText}>
                   Temperature: {this.state.temperature} °C
@@ -184,7 +179,7 @@ const dark = StyleSheet.create({
     textAlign: "center",
     paddingTop: 30,
     paddingBottom: 10,
-    backgroundColor: "#00bfff",
+    backgroundColor: "#00BFFF",
     color: "white",
     borderRadius: 10
   },
@@ -210,7 +205,8 @@ const dark = StyleSheet.create({
     borderColor: "#00BFFF",
     marginTop: 40,
     width: 200,
-    height: 50
+    height: 50,
+    overflow: "hidden",
   },
   city_inside: {
     textAlign: "center",
@@ -229,20 +225,25 @@ const dark = StyleSheet.create({
     width: "80%",
     height: 300,
     borderRadius: 20,
-    overflow: "hidden"
+    overflow: "hidden",
   },
   weatherTitle: {
+    position: "absolute",
+    top: 10,
+    left: 0,
+    right: 0,
     fontSize: 25,
     textAlign: "center",
-    color: "black"
+    color: "white"
   },
   weatherImg: {
     width: "100%",
-    height: "auto"
+    height: "auto",
+    opacity: .8
   },
   weatherInfo: {
     height: "100%",
-    paddingTop: 180,
+    paddingTop: 210,
     paddingLeft: 10
   },
   weatherInfoText: {
@@ -303,27 +304,33 @@ const light = StyleSheet.create({
   },
   info: {
     marginBottom: 20,
-    backgroundColor: "black",
+    backgroundColor: "white",
     width: "80%",
     height: 300,
     borderRadius: 20,
-    overflow: "hidden"
+    overflow: "hidden",
   },
   weatherTitle: {
+    position: "absolute",
+    top: 10,
+    left: 0,
+    right: 0,
     fontSize: 25,
     textAlign: "center",
     color: "white"
   },
   weatherImg: {
     width: "100%",
-    height: "auto"
+    height: "auto",
+    opacity: .8
   },
   weatherInfo: {
     height: "100%",
-    paddingTop: 180
+    paddingTop: 210,
+    paddingLeft: 10
   },
   weatherInfoText: {
-    color: "black",
+    color: "white",
     fontSize: 20
   }
 });
