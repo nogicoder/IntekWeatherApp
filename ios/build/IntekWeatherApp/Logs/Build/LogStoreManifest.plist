@@ -6,7 +6,7 @@
 	<integer>10</integer>
 	<key>logs</key>
 	<dict>
-		<key>46A46843-FDC3-4CA5-B2D4-5C0B8A6DD71B</key>
+		<key>415DB86C-005C-40EF-8680-7BB7106FB8BE</key>
 		<dict>
 			<key>className</key>
 			<string>IDECommandLineBuildLog</string>
@@ -15,11 +15,11 @@
 			<key>domainType</key>
 			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
 			<key>fileName</key>
-			<string>46A46843-FDC3-4CA5-B2D4-5C0B8A6DD71B.xcactivitylog</string>
+			<string>415DB86C-005C-40EF-8680-7BB7106FB8BE.xcactivitylog</string>
 			<key>primaryObservable</key>
 			<dict>
 				<key>highLevelStatus</key>
-				<string>W</string>
+				<string>A</string>
 			</dict>
 			<key>schemeIdentifier-containerName</key>
 			<string>IntekWeatherApp project</string>
@@ -30,15 +30,15 @@
 			<key>signature</key>
 			<string>Building project IntekWeatherApp with scheme IntekWeatherApp and configuration Debug</string>
 			<key>timeStartedRecording</key>
-			<real>577323297.08467102</real>
+			<real>577347395.129637</real>
 			<key>timeStoppedRecording</key>
-			<real>577323304.07537794</real>
+			<real>577347401.65414703</real>
 			<key>title</key>
 			<string>Building project IntekWeatherApp with scheme IntekWeatherApp and configuration Debug</string>
 			<key>uniqueIdentifier</key>
-			<string>46A46843-FDC3-4CA5-B2D4-5C0B8A6DD71B</string>
+			<string>415DB86C-005C-40EF-8680-7BB7106FB8BE</string>
 		</dict>
-		<key>8BD5F1D3-B3CC-4DD0-8D6A-486CAA7B2008</key>
+		<key>A3BFEA3B-98F9-4F42-A51E-4A63B133C6BB</key>
 		<dict>
 			<key>className</key>
 			<string>IDECommandLineBuildLog</string>
@@ -47,11 +47,11 @@
 			<key>domainType</key>
 			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
 			<key>fileName</key>
-			<string>8BD5F1D3-B3CC-4DD0-8D6A-486CAA7B2008.xcactivitylog</string>
+			<string>A3BFEA3B-98F9-4F42-A51E-4A63B133C6BB.xcactivitylog</string>
 			<key>primaryObservable</key>
 			<dict>
 				<key>highLevelStatus</key>
-				<string>W</string>
+				<string>A</string>
 			</dict>
 			<key>schemeIdentifier-containerName</key>
 			<string>IntekWeatherApp project</string>
@@ -62,13 +62,13 @@
 			<key>signature</key>
 			<string>Building project IntekWeatherApp with scheme IntekWeatherApp and configuration Debug</string>
 			<key>timeStartedRecording</key>
-			<real>577323640.95707202</real>
+			<real>577339514.83829904</real>
 			<key>timeStoppedRecording</key>
-			<real>577323806.87627101</real>
+			<real>577339519.74516797</real>
 			<key>title</key>
 			<string>Building project IntekWeatherApp with scheme IntekWeatherApp and configuration Debug</string>
 			<key>uniqueIdentifier</key>
-			<string>8BD5F1D3-B3CC-4DD0-8D6A-486CAA7B2008</string>
+			<string>A3BFEA3B-98F9-4F42-A51E-4A63B133C6BB</string>
 		</dict>
 	</dict>
 </dict>

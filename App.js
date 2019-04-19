@@ -1,76 +1,73 @@
-// Import Components
+// Import Components from React Libraries
 import React, { Component } from "react";
 import {
-  Platform,
-  Dimensions,
-  StyleSheet,
   Text,
   View,
   Image,
-  Button,
-  Linking,
   Picker,
   TextInput,
-  ImageBackground,
   KeyboardAvoidingView,
   TouchableOpacity
 } from "react-native";
 
-// Import location details
+// Import location data
 import * as data from "./city.list.json";
 
-import { LoginButton, AccessToken } from 'react-native-fbsdk';
+// Import Stylesheets
+import {dark, light} from "./js/styling.js";
 
+// Import LoginButton Component
+import {Login} from "./js/login.js";
 
-const a = {
-  id: 1559969,
-  name: "T\u1ec9nh Ngh\u1ec7 An",
-  country: "VN",
-  coord: { lon: 104.833328, lat: 19.33333 }
-};
 
 // Main App Component
 export default class App extends Component {
+  
   // Define initial props and state
   constructor(props) {
     super(props);
     this.state = {
       style: dark,
-      cityname: null,
-      city: null,
-      text: null,
+      cityname: data.default[4].name,
+      city: data.default[4],
+      text: data.default[4].name,
       temperature: null,
       pressure: null,
-      humidity: null
+      humidity: null,
     };
   }
 
-  componentWillMount() {
-    this.setState({ city: data.default[0], text: data.default[0].name });
-  }
-
+  // Run the function after done rendering
   componentDidMount() {
-    this.fetchWeather(this.state.city.coord.lat, this.state.city.coord.lon);
+    this.updateCity(this.state.city.name);
   }
 
-  fetchWeather(lat, lon) {
+  // Fetching the weather from OpenWeatherAPI
+  fetchWeather(item) {
     return fetch(
-      `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&APPID=8cb20985ef311ad1d1695780c2bc65ec`
+      `http://api.openweathermap.org/data/2.5/weather?lat=${item.coord.lat}&lon=${item.coord.lon}&units=metric&APPID=8cb20985ef311ad1d1695780c2bc65ec`
     )
+
+      // Get the response in JSON format and set the value to states
       .then(response => response.json())
       .then(responseJson => {
         this.setState({
+          cityname: item.name, 
+          text: item.name, 
+          city: item,
           temperature: responseJson.main.temp,
           pressure: responseJson.main.pressure,
           humidity: responseJson.main.humidity,
         });
       })
+
+      // Catching error
       .catch(error => {
         console.log(error);
       });
   }
 
-  // Change state of the whole component when a touchable component is pressed
+  // Change state of the whole App Component between dark and light theme when a button is touched
   onPress = () => {
     if (this.state.style === dark) {
       this.setState({ style: light });
@@ -79,66 +76,81 @@ export default class App extends Component {
     }
   };
 
-  updateCity = (itemValue, itemIndex) => {
-    data.default.map((item, index) => {
+  // Update the state based on value chosen in Picker component
+  updateCity = (itemValue) => {
+    data.default.map((item) => {
       if (item.name === itemValue) {
-        this.setState({ cityname: itemValue, text: itemValue, city: item });
+        this.setState({
+          cityname: itemValue, 
+          text: itemValue, 
+          city: item});
+        this.fetchWeather(item);
       }
     });
-  this.fetchWeather(this.state.city.coord.lat, this.state.city.coord.lon);
   };
 
-  submitInput = text => {
+  // Update the state based on value chosen in TextInput component
+  submitInput = () => {
     for (let i = 0; i < data.default.length; i++) {
       if (data.default[i].name == this.state.text) {
-        this.setState({ city: data.default[i], cityname: this.state.text });
-        this.fetchWeather(
-          this.state.city.coord.lat,
-          this.state.city.coord.lon
-        );
+        this.fetchWeather(data.default[i]);
       }
     }
   };
 
   // Render the JSX
   render() {
+
+    // Conditions to render different image for different weather condition
+    const temp = this.state.temperature;
+    let weatherImage;
+
+    // If the temperature of the city below 30 degree (try "Da Lat" in the Input field)
+    if (temp < 30) {
+      weatherImage = <Image
+          source={require("./static/cool.png")}
+          style={this.state.style.weatherImg}
+        />;
+    // Else (try "Lagi" in the Input field)    
+    } else {
+      weatherImage = (
+        <Image
+          source={require("./static/hot.jpg")}
+          style={this.state.style.weatherImg}
+        />
+      );
+    };
+
+    // Main JSX script
     return (
+
+      // Avoid the keyboard's misbehavior when user typing in by using this component
       <KeyboardAvoidingView
         style={this.state.style.container}
         behavior="padding"
         keyboardVerticalOffset="-200"
         enabled
       >
-        <Text style={this.state.style.welcome}>Weather App</Text>
 
-        {/* Set the app description as a touchable component */}
+        {/* The App Title */}
+        <Text style={this.state.style.welcome}>Weather App</Text>
+        
+        {/* Change Theme using the description line as a button */}
         <TouchableOpacity onPress={this.onPress}>
           <Text style={this.state.style.description}>
             Weather Statistics
           </Text>
         </TouchableOpacity>
 
+        {/* Display main body of the component */}
         <View style={this.state.style.weather}>
 
+          {/* Display Facebook Login Button */}
           <View style={this.state.style.facebook}>
-            <LoginButton
-              onLoginFinished={
-                (error, result) => {
-                  if (error) {
-                    console.log("login has error: " + result.error);
-                  } else if (result.isCancelled) {
-                    console.log("login is cancelled.");
-                  } else {
-                    AccessToken.getCurrentAccessToken().then(
-                      (data) => {
-                        console.log(data.accessToken.toString())
-                      }
-                    )
-                  }
-                }
-              }
-              onLogoutFinished={() => console.log("logout.")} />
+            <Login/>
           </View>
+
+          {/* Display City name indicator */}
           <View style={this.state.style.city}>
             <TextInput
               value={this.state.text}
@@ -147,11 +159,15 @@ export default class App extends Component {
               onSubmitEditing={this.submitInput}
             />
           </View>
+
+          {/* Display Picker component */}
           <Picker
             style={this.state.style.picker}
             selectedValue={this.state.cityname}
             onValueChange={this.updateCity}
           >
+
+            {/* Listing all items in the data file */}
             {data.default.map((item, index) => (
               <Picker.Item
                 color="#00BFFF"
@@ -162,190 +178,32 @@ export default class App extends Component {
             ))}
           </Picker>
 
+          {/* Display Weather Info Panel */}
           <View style={this.state.style.info}>
-            <ImageBackground
-              source={require("./b.png")}
-              style={this.state.style.weatherImg}
-            >
-              <Text style={this.state.style.weatherTitle}>
-                {this.state.city.name}
+
+            {/* Display Weather Image (Interchangable based on the logic in the beginning of render() */}
+            {weatherImage}
+          
+            {/* City Name */}
+            <Text style={this.state.style.weatherTitle}>
+              {this.state.city.name}
+            </Text>
+
+            {/* Fetched Weather Information */}
+            <View style={this.state.style.weatherInfo}>
+              <Text style={this.state.style.weatherInfoText}>
+                Temperature: {this.state.temperature} °C
               </Text>
-              <View style={this.state.style.weatherInfo}>
-                <Text style={this.state.style.weatherInfoText}>
-                  Temperature: {this.state.temperature} °C
-                </Text>
-                <Text style={this.state.style.weatherInfoText}>
-                  Pressure: {this.state.pressure} Pa
-                </Text>
-                <Text style={this.state.style.weatherInfoText}>
-                  Humidity: {this.state.humidity} %
-                </Text>
-              </View>
-            </ImageBackground>
+              <Text style={this.state.style.weatherInfoText}>
+                Pressure: {this.state.pressure} Pa
+              </Text>
+              <Text style={this.state.style.weatherInfoText}>
+                Humidity: {this.state.humidity} %
+              </Text>
+            </View>
           </View>
         </View>
       </KeyboardAvoidingView>
     );
   }
 }
-
-// Define dark theme styles
-const dark = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "black"
-  },
-  welcome: {
-    fontSize: 40,
-    textAlign: "center",
-    paddingTop: 30,
-    paddingBottom: 10,
-    backgroundColor: "#00BFFF",
-    color: "white",
-    borderRadius: 10
-  },
-  description: {
-    fontSize: 25,
-    textAlign: "center",
-    margin: 10,
-    color: "white"
-  },
-  weather: {
-    flex: 1,
-    justifyContent: "space-between",
-    alignItems: "center"
-  },
-  facebook: {
-    marginTop: 30,
-  },
-  city: {
-    borderWidth: 1,
-    borderColor: "#00BFFF",
-    marginTop: 40,
-    width: 200,
-    height: 50,
-    overflow: "hidden",
-  },
-  city_inside: {
-    textAlign: "center",
-    color: "white",
-    paddingTop: 10,
-    fontSize: 20
-  },
-  picker: {
-    marginTop: -30,
-    width: "50%",
-    color: "white"
-  },
-  info: {
-    marginBottom: 20,
-    backgroundColor: "white",
-    width: "80%",
-    height: 300,
-    borderRadius: 20,
-    overflow: "hidden",
-  },
-  weatherTitle: {
-    position: "absolute",
-    top: 10,
-    left: 0,
-    right: 0,
-    fontSize: 25,
-    textAlign: "center",
-    color: "white"
-  },
-  weatherImg: {
-    width: "100%",
-    height: "auto",
-    opacity: .8
-  },
-  weatherInfo: {
-    height: "100%",
-    paddingTop: 210,
-    paddingLeft: 10
-  },
-  weatherInfoText: {
-    color: "white",
-    fontSize: 20
-  }
-});
-
-// Define light theme styles
-const light = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "white"
-  },
-  welcome: {
-    fontSize: 40,
-    textAlign: "center",
-    paddingTop: 30,
-    paddingBottom: 10,
-    backgroundColor: "#00bfff",
-    color: "black",
-    borderRadius: 10
-  },
-  description: {
-    fontSize: 25,
-    textAlign: "center",
-    margin: 10,
-    color: "black"
-  },
-  weather: {
-    flex: 1,
-    justifyContent: "space-between",
-    alignItems: "center"
-  },
-  facebook: {
-    marginTop: 30,
-  },
-  city: {
-    borderWidth: 1,
-    borderColor: "lightblue",
-    marginTop: 40,
-    width: 200,
-    height: 50
-  },
-  city_inside: {
-    textAlign: "center",
-    color: "black",
-    paddingTop: 10,
-    fontSize: 20
-  },
-  picker: {
-    marginTop: -50,
-    width: "50%",
-    color: "black"
-  },
-  info: {
-    marginBottom: 20,
-    backgroundColor: "white",
-    width: "80%",
-    height: 300,
-    borderRadius: 20,
-    overflow: "hidden",
-  },
-  weatherTitle: {
-    position: "absolute",
-    top: 10,
-    left: 0,
-    right: 0,
-    fontSize: 25,
-    textAlign: "center",
-    color: "white"
-  },
-  weatherImg: {
-    width: "100%",
-    height: "auto",
-    opacity: .8
-  },
-  weatherInfo: {
-    height: "100%",
-    paddingTop: 210,
-    paddingLeft: 10
-  },
-  weatherInfoText: {
-    color: "white",
-    fontSize: 20
-  }
-});
