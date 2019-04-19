@@ -19,6 +19,8 @@ import {
 // Import location details
 import * as data from "./city.list.json";
 
+import { LoginButton, AccessToken } from 'react-native-fbsdk';
+
 
 const a = {
   id: 1559969,
@@ -117,7 +119,26 @@ export default class App extends Component {
         </TouchableOpacity>
 
         <View style={this.state.style.weather}>
-          <Text style={this.state.style.facebook}>FB LOGIN BUTTON</Text>
+
+          <View style={this.state.style.facebook}>
+            <LoginButton
+              onLoginFinished={
+                (error, result) => {
+                  if (error) {
+                    console.log("login has error: " + result.error);
+                  } else if (result.isCancelled) {
+                    console.log("login is cancelled.");
+                  } else {
+                    AccessToken.getCurrentAccessToken().then(
+                      (data) => {
+                        console.log(data.accessToken.toString())
+                      }
+                    )
+                  }
+                }
+              }
+              onLogoutFinished={() => console.log("logout.")} />
+          </View>
           <View style={this.state.style.city}>
             <TextInput
               value={this.state.text}
@@ -195,10 +216,7 @@ const dark = StyleSheet.create({
     alignItems: "center"
   },
   facebook: {
-    color: "white",
     marginTop: 30,
-    borderWidth: 2,
-    borderColor: "#00BFFF"
   },
   city: {
     borderWidth: 1,
@@ -279,10 +297,7 @@ const light = StyleSheet.create({
     alignItems: "center"
   },
   facebook: {
-    color: "black",
     marginTop: 30,
-    borderWidth: 2,
-    borderColor: "lightblue"
   },
   city: {
     borderWidth: 1,

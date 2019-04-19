@@ -1,0 +1,26 @@
+dependencies: \
+  /Users/admin/Projects/IntekWeatherApp/node_modules/react-native/Libraries/Text/Text/RCTTextView.m \
+  /Users/admin/Projects/IntekWeatherApp/node_modules/react-native/Libraries/Text/Text/RCTTextView.h \
+  /Users/admin/Projects/IntekWeatherApp/ios/build/IntekWeatherApp/Build/Products/Debug-iphonesimulator/include/React/RCTComponent.h \
+  /Users/admin/Projects/IntekWeatherApp/ios/build/IntekWeatherApp/Build/Products/Debug-iphonesimulator/include/React/RCTUtils.h \
+  /Users/admin/Projects/IntekWeatherApp/ios/build/IntekWeatherApp/Build/Products/Debug-iphonesimulator/include/React/RCTAssert.h \
+  /Users/admin/Projects/IntekWeatherApp/ios/build/IntekWeatherApp/Build/Products/Debug-iphonesimulator/include/React/RCTDefines.h \
+  /Users/admin/Projects/IntekWeatherApp/ios/build/IntekWeatherApp/Build/Products/Debug-iphonesimulator/include/React/UIView+React.h \
+  /Users/admin/Projects/IntekWeatherApp/ios/build/IntekWeatherApp/Build/Products/Debug-iphonesimulator/include/yoga/YGEnums.h \
+  /Users/admin/Projects/IntekWeatherApp/ios/build/IntekWeatherApp/Build/Products/Debug-iphonesimulator/include/yoga/YGMacros.h \
+  /Users/admin/Projects/IntekWeatherApp/node_modules/react-native/Libraries/Text/Text/RCTTextShadowView.h \
+  /Users/admin/Projects/IntekWeatherApp/ios/build/IntekWeatherApp/Build/Products/Debug-iphonesimulator/include/React/RCTShadowView.h \
+  /Users/admin/Projects/IntekWeatherApp/ios/build/IntekWeatherApp/Build/Products/Debug-iphonesimulator/include/React/RCTLayout.h \
+  /Users/admin/Projects/IntekWeatherApp/ios/build/IntekWeatherApp/Build/Products/Debug-iphonesimulator/include/yoga/Yoga.h \
+  /Users/admin/Projects/IntekWeatherApp/ios/build/IntekWeatherApp/Build/Products/Debug-iphonesimulator/include/yoga/YGValue.h \
+  /Users/admin/Projects/IntekWeatherApp/ios/build/IntekWeatherApp/Build/Products/Debug-iphonesimulator/include/React/RCTRootView.h \
+  /Users/admin/Projects/IntekWeatherApp/ios/build/IntekWeatherApp/Build/Products/Debug-iphonesimulator/include/React/RCTBridge.h \
+  /Users/admin/Projects/IntekWeatherApp/ios/build/IntekWeatherApp/Build/Products/Debug-iphonesimulator/include/React/RCTBridgeDelegate.h \
+  /Users/admin/Projects/IntekWeatherApp/ios/build/IntekWeatherApp/Build/Products/Debug-iphonesimulator/include/React/RCTJavaScriptLoader.h \
+  /Users/admin/Projects/IntekWeatherApp/ios/build/IntekWeatherApp/Build/Products/Debug-iphonesimulator/include/React/RCTBridgeModule.h \
+  /Users/admin/Projects/IntekWeatherApp/ios/build/IntekWeatherApp/Build/Products/Debug-iphonesimulator/include/React/RCTFrameUpdate.h \
+  /Users/admin/Projects/IntekWeatherApp/ios/build/IntekWeatherApp/Build/Products/Debug-iphonesimulator/include/React/RCTInvalidating.h \
+  /Users/admin/Projects/IntekWeatherApp/node_modules/react-native/Libraries/Text/BaseText/RCTBaseTextShadowView.h \
+  /Users/admin/Projects/IntekWeatherApp/node_modules/react-native/Libraries/Text/RCTTextAttributes.h \
+  /Users/admin/Projects/IntekWeatherApp/ios/build/IntekWeatherApp/Build/Products/Debug-iphonesimulator/include/React/RCTTextDecorationLineType.h \
+  /Users/admin/Projects/IntekWeatherApp/node_modules/react-native/Libraries/Text/RCTTextTransform.h
